@@ -111,11 +111,15 @@ export default class Client {
 			.then(resp => resp.json().catch(() => ({})))
 			.then(data => {
 				// return parsed body stream
+				console.log('Client amplify OK data: ', data);
+				console.log('Client amplify OK response: ', response);
 				if (response.ok) return callback(null, data);
 				responseJsonData = data;
 
 				// Taken from aws-sdk-js/lib/protocol/json.js
 				// eslint-disable-next-line no-underscore-dangle
+				console.log('Client amplify ERROR data: ', data);
+				console.log('Client amplify ERROR response: ', response);
 				const code = (data.__type || data.code).split('#').pop();
 				const error = new Error(data.message || data.Message || null);
 				error.name = code;
