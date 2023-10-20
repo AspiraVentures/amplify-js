@@ -193,12 +193,14 @@ var Client = /*#__PURE__*/ (function () {
 		fetch(this.endpoint, options)
 			.then(
 				function (resp) {
+					console.log('Client amplify fetch resp: ', JSON.stringify(resp));
 					response = resp;
 					return resp;
 				},
 				function (err) {
 					// If error happens here, the request failed
 					// if it is TypeError throw network error
+					console.log('Client amplify fetch err: ', JSON.stringify(err));
 					if (err instanceof TypeError) {
 						throw new Error('Network error');
 					}
@@ -212,15 +214,18 @@ var Client = /*#__PURE__*/ (function () {
 			})
 			.then(function (data) {
 				// return parsed body stream
-				console.log('Client amplify OK data: ', data);
-				console.log('Client amplify OK response: ', response);
+				console.log('Client amplify OK data: ', JSON.stringify(data));
+				console.log('Client amplify OK response: ', JSON.stringify(response));
 				if (response.ok) return callback(null, data);
 				responseJsonData = data;
 
 				// Taken from aws-sdk-js/lib/protocol/json.js
 				// eslint-disable-next-line no-underscore-dangle
-				console.log('Client amplify ERROR data: ', data);
-				console.log('Client amplify ERROR response: ', response);
+				console.log('Client amplify ERROR data: ', JSON.stringify(data));
+				console.log(
+					'Client amplify ERROR response: ',
+					JSON.stringify(response)
+				);
 				var code = (data.__type || data.code).split('#').pop();
 				var error = new Error(data.message || data.Message || null);
 				error.name = code;
