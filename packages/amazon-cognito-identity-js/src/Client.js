@@ -113,7 +113,6 @@ export default class Client {
 			.then(resp => resp.json().catch(() => ({})))
 			.then(data => {
 				// return parsed body stream
-				console.log('Client amplify OK data: ', JSON.stringify(data));
 				console.log('Client amplify OK response: ', JSON.stringify(response));
 				if (response.ok) return callback(null, data);
 				responseJsonData = data;
